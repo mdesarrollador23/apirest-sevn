@@ -11,16 +11,18 @@ const sqlConfig = {
     idleTimeoutMillis: 30000,
   },
   options: {
-    encrypt: false, // for azure
+    encrypt: true, // for azure
     trustServerCertificate: true, // change to true for local dev / self-signed certs
   },
 };
 
-export const getConn = async () => {
+const getConn = async () => {
   try {
-    const pool = await sql.connect(sqlConfig);
+    const pool = await new sql.connect(sqlConfig);
     return pool;
   } catch (err) {
     console.error(err);
   }
 };
+
+export { sql, getConn };
